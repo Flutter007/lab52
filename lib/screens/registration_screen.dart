@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:lab52/app_routes.dart';
+import 'package:provider/provider.dart';
 import '../data/registration_data.dart';
+import '../provider/user_provider.dart';
+import '../widgets/registration_form/registration_form.dart';
+import '../widgets/registration_form/registration_form_controller.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -10,18 +14,39 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  String? userGender;
   String? userMeetingGender;
+  String? userGender;
+  final controller = RegistrationFormController();
+
+  void goToMain() {
+    Navigator.of(context).pushNamed(AppRoutes.home, arguments: userGender);
+  }
+
+  void saveUser() {
+    if (controller.formKey.currentState!.validate() &&
+        userGender != null &&
+        userMeetingGender != null) {
+      final user = controller.getUser(userGender!);
+      context.read<UserProvider>().setUser(user);
+      goToMain();
+    }
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Register yourself!')),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             DropdownMenu(
-              expandedInsets: EdgeInsets.all(100),
+              expandedInsets: EdgeInsets.all(40),
               label: Text('Select Gender'),
               onSelected: (value) {
                 setState(() {
@@ -39,9 +64,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       )
                       .toList(),
             ),
-            SizedBox(height: 100),
+            RegistrationForm(controller: controller),
+            SizedBox(height: 20),
             DropdownMenu(
-              expandedInsets: EdgeInsets.all(100),
+              expandedInsets: EdgeInsets.all(40),
               label: Text('Select preferred to meet gender'),
               onSelected: (value) {
                 setState(() {
@@ -59,6 +85,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       )
                       .toList(),
             ),
+            SizedBox(height: 20),
+            ElevatedButton(onPressed: saveUser, child: Text('Register')),
           ],
         ),
       ),
