@@ -19,6 +19,7 @@ class _LikedPersonsScreenState extends State<LikedPersonsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final List<Person> likedPersons =
         context
             .watch<PersonListProvider>()
@@ -26,19 +27,32 @@ class _LikedPersonsScreenState extends State<LikedPersonsScreen> {
             .where((e) => e.isLiked == true)
             .toList();
     return Scaffold(
-      appBar: AppBar(title: Text('Liked'), automaticallyImplyLeading: false),
+      appBar: AppBar(
+        title: Text('Start chatting now!'),
+        automaticallyImplyLeading: false,
+      ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            child: ListView.builder(
-              itemBuilder:
-                  (ctx, index) => PersonShortCard(
-                    onTap: goToChat,
-                    person: likedPersons[index],
-                  ),
-              itemCount: likedPersons.length,
-            ),
-          ),
+          likedPersons.isNotEmpty
+              ? Expanded(
+                child: ListView.builder(
+                  itemBuilder:
+                      (ctx, index) => PersonShortCard(
+                        openChat: goToChat,
+                        changeCondition: () {},
+                        deletePerson: () {},
+                        person: likedPersons[index],
+                      ),
+                  itemCount: likedPersons.length,
+                ),
+              )
+              : Center(
+                child: Text(
+                  'You have not liked anyone yet',
+                  style: theme.textTheme.headlineSmall,
+                ),
+              ),
         ],
       ),
     );

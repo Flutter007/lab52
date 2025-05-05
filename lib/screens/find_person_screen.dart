@@ -22,7 +22,6 @@ class _FindPersonScreenState extends State<FindPersonScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     userSelectedGender = context.read<UserProvider>().selectedGender;
-    print(userSelectedGender);
     fetchPerson();
   }
 
@@ -78,12 +77,17 @@ class _FindPersonScreenState extends State<FindPersonScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             PersonFindCard(person: person!),
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
                   onPressed: () => postponePerson(person!),
-                  child: Icon(Icons.watch_later_rounded),
+                  child: Icon(
+                    Icons.watch_later_rounded,
+                    color: theme.colorScheme.inverseSurface,
+                    size: 30,
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () => likePerson(person!),
@@ -93,11 +97,19 @@ class _FindPersonScreenState extends State<FindPersonScreen> {
                             ? theme.colorScheme.error
                             : theme.colorScheme.surface,
                   ),
-                  child: Icon(Icons.favorite_rounded),
+                  child: Icon(
+                    Icons.favorite_rounded,
+                    color: theme.colorScheme.error,
+                    size: 30,
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: fetchPerson,
-                  child: Icon(Icons.next_plan),
+                  child: Icon(
+                    Icons.next_plan,
+                    color: theme.colorScheme.inverseSurface,
+                    size: 30,
+                  ),
                 ),
               ],
             ),

@@ -6,12 +6,11 @@ class ChatHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: SafeArea(
+    return Scaffold(
+      appBar: AppBar(title: Text('Chat')),
+      body: SafeArea(
         child: Column(
           children: [
-            Text('Chat:'),
             Expanded(child: SingleChildScrollView(child: ChatWidget())),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -26,17 +25,14 @@ class ChatHistoryScreen extends StatelessWidget {
                         ),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black87),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           labelText: 'Massage Text',
                           labelStyle: TextStyle(
-                            color: Colors.black87,
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
                           ),
                           filled: true,
-                          fillColor: Colors.white,
                         ),
                       ),
                     ),
@@ -44,16 +40,10 @@ class ChatHistoryScreen extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shadowColor: Colors.green,
                         shape: CircleBorder(),
                         padding: EdgeInsets.all(15),
                       ),
-                      child: Icon(
-                        Icons.send_sharp,
-                        color: Colors.green,
-                        size: 25,
-                      ),
+                      child: Icon(Icons.send_sharp, size: 25),
                     ),
                   ],
                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lab52/app_routes.dart';
+import 'package:lab52/widgets/gender_dropdown_menu.dart';
 import 'package:provider/provider.dart';
-import '../data/registration_data.dart';
 import '../provider/user_provider.dart';
 import '../widgets/registration_form/registration_form.dart';
 import '../widgets/registration_form/registration_form_controller.dart';
@@ -19,7 +19,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final controller = RegistrationFormController();
 
   void goToMain() {
-    Navigator.of(context).pushNamed(AppRoutes.home, arguments: userGender);
+    Navigator.of(context).pushNamed(AppRoutes.home);
   }
 
   void saveUser() {
@@ -28,7 +28,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         userMeetingGender != null) {
       final user = controller.getUser(userGender!);
       context.read<UserProvider>().setUser(user);
-      context.read<UserProvider>().setGender(userMeetingGender);
+      context.read<UserProvider>().setGender(userMeetingGender, userGender);
       goToMain();
     }
   }
@@ -41,53 +41,35 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(title: Text('Register yourself!')),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            RegistrationForm(controller: controller),
-            SizedBox(height: 20),
-            DropdownMenu(
-              expandedInsets: EdgeInsets.all(40),
-              label: Text('Select Gender'),
-              onSelected: (value) {
-                setState(() {
-                  userGender = value;
-                });
-              },
-              dropdownMenuEntries:
-                  genderList
-                      .map(
-                        (e) => DropdownMenuEntry(
-                          value: e.id,
-                          leadingIcon: Icon(e.icon),
-                          label: e.title,
-                        ),
-                      )
-                      .toList(),
+            Text('Fill info : ', style: theme.textTheme.titleLarge),
+            RegistrationForm(
+              firstMenu: GenderDropDownMenu(
+                txt: 'Gender',
+                icon: Icon(userGender == 'male' ? Icons.male : Icons.female),
+                onSelected: (value) {
+                  setState(() {
+                    userGender = value;
+                  });
+                },
+              ),
+              controller: controller,
+              secondMenu: GenderDropDownMenu(
+                txt: 'Meeting Gender',
+                icon: Icon(userGender == 'male' ? Icons.male : Icons.female),
+                onSelected: (value) {
+                  setState(() {
+                    userMeetingGender = value;
+                  });
+                },
+              ),
             ),
             SizedBox(height: 20),
-            DropdownMenu(
-              expandedInsets: EdgeInsets.all(40),
-              label: Text('Select preferred to meet gender'),
-              onSelected: (value) {
-                setState(() {
-                  userMeetingGender = value;
-                });
-              },
-              dropdownMenuEntries:
-                  genderList
-                      .map(
-                        (e) => DropdownMenuEntry(
-                          value: e.id,
-                          leadingIcon: Icon(e.icon),
-                          label: e.title,
-                        ),
-                      )
-                      .toList(),
-            ),
-            SizedBox(height: 40),
             ElevatedButton(onPressed: saveUser, child: Text('Register')),
           ],
         ),

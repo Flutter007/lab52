@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lab52/widgets/registration_form/registration_form_controller.dart';
-
 import '../custom_text_form_field.dart';
 
 class RegistrationForm extends StatefulWidget {
   final RegistrationFormController controller;
-  const RegistrationForm({super.key, required this.controller});
+  final Widget firstMenu;
+  final Widget secondMenu;
+  const RegistrationForm({
+    super.key,
+    required this.controller,
+    required this.firstMenu,
+    required this.secondMenu,
+  });
 
   @override
   State<RegistrationForm> createState() => _RegistrationFormState();
@@ -46,6 +52,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 return null;
               },
             ),
+            widget.firstMenu,
             CustomTextFormField(
               controller: widget.controller.ageController,
               keyboardType: TextInputType.number,
@@ -81,6 +88,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 return null;
               },
             ),
+            widget.secondMenu,
           ],
         ),
       ),

@@ -22,7 +22,7 @@ class RegistrationFormController {
     ageController.text = user.age.toString();
     imageController.text = user.image;
     lastNameController.text = user.lastName;
-    locationController.text = user.gender;
+    locationController.text = user.location;
   }
 
   User getUser(String gender) {

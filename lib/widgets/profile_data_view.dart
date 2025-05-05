@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lab52/widgets/image_container.dart';
 import 'package:provider/provider.dart';
-
-import '../models/user.dart';
 import '../provider/user_provider.dart';
 
 class ProfileDataView extends StatefulWidget {
@@ -12,31 +11,25 @@ class ProfileDataView extends StatefulWidget {
 }
 
 class _ProfileDataViewState extends State<ProfileDataView> {
-  late User? user;
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    user = context.read<UserProvider>().user;
-  }
-
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<UserProvider>().user;
     final theme = Theme.of(context);
+    final titleLarge = theme.textTheme.titleLarge;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.network(user!.image),
+        ImageContainer(image: user!.image),
         SizedBox(height: 20),
-        Text('Name :${user!.name}', style: theme.textTheme.titleLarge),
+        Text('Name :${user.name}', style: titleLarge),
         SizedBox(height: 10),
-        Text(
-          'Last name : ${user!.lastName}',
-          style: theme.textTheme.titleLarge,
-        ),
+        Text('Last name : ${user.lastName}', style: titleLarge),
         SizedBox(height: 10),
-        Text('Age : ${user!.age}', style: theme.textTheme.titleLarge),
+        Text('Age : ${user.age}', style: titleLarge),
         SizedBox(height: 10),
-        Text('Gender : ${user!.gender}', style: theme.textTheme.titleLarge),
+        Text('Gender : ${user.gender.toUpperCase()}', style: titleLarge),
+        SizedBox(height: 10),
+        Text('Location : ${user.location}', style: titleLarge),
       ],
     );
   }

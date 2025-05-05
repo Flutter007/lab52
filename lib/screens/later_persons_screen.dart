@@ -16,8 +16,13 @@ class _LaterPersonsScreenState extends State<LaterPersonsScreen> {
     context.read<PersonListProvider>().goToFav(person);
   }
 
+  void deletePerson(Person person) {
+    context.read<PersonListProvider>().deletePerson(person);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final List<Person> latePersons =
         context
             .watch<PersonListProvider>()
@@ -25,21 +30,33 @@ class _LaterPersonsScreenState extends State<LaterPersonsScreen> {
             .where((e) => e.isLiked == false)
             .toList();
     return Scaffold(
-      appBar: AppBar(title: Text('Later'), automaticallyImplyLeading: false),
+      appBar: AppBar(
+        title: Text('Like them too!'),
+        automaticallyImplyLeading: false,
+      ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           latePersons.isNotEmpty
               ? Expanded(
                 child: ListView.builder(
                   itemBuilder:
                       (ctx, index) => PersonShortCard(
-                        onTap: () {},
+                        openChat: () {},
+                        changeCondition:
+                            () => changeCondition(latePersons[index]),
+                        deletePerson: () => deletePerson(latePersons[index]),
                         person: latePersons[index],
                       ),
                   itemCount: latePersons.length,
                 ),
               )
-              : Center(child: Text('No persons')),
+              : Center(
+                child: Text(
+                  'There are nobody)',
+                  style: theme.textTheme.headlineSmall,
+                ),
+              ),
         ],
       ),
     );

@@ -44,4 +44,12 @@ class PersonListProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void deletePerson(Person person) {
+    final index = _persons.indexWhere((element) => element.uuid == person.uuid);
+    if (index != -1) {
+      _persons = List<Person>.from(_persons)..removeAt(index);
+    }
+    notifyListeners();
+  }
 }

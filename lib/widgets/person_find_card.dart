@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/person.dart';
+import 'custom_text.dart';
+import 'image_container.dart';
 
 class PersonFindCard extends StatelessWidget {
   final Person person;
@@ -9,14 +11,17 @@ class PersonFindCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 350,
-      height: 300,
+      height: 320,
       child: Card(
         child: Column(
           children: [
-            Image.network(person.image, fit: BoxFit.fill),
-            Text('${person.name} ${person.lastName}'),
-            Text(person.age.toString()),
-            Text('${person.city}, ${person.country}'),
+            SizedBox(height: 20),
+            ImageContainer(image: person.image),
+            SizedBox(height: 8),
+            CustomText(
+              txt: '${person.name} ${person.lastName} , ${person.age}',
+            ),
+            CustomText(txt: '${person.city}, ${person.country}'),
           ],
         ),
       ),

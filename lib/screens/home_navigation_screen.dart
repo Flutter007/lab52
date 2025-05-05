@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lab52/screens/find_person_screen.dart';
 import 'package:lab52/screens/liked_persons_screen.dart';
 import 'package:lab52/screens/profile_screen.dart';
+import 'package:lab52/widgets/custom_navigator_destination.dart';
 import '../app_routes.dart';
+import 'chat_history_screen.dart';
 import 'later_persons_screen.dart';
 import 'not_found_screen.dart';
 
@@ -36,20 +38,23 @@ class _HomeNavigatorScreenState extends State<HomeNavigatorScreen> {
     });
   }
 
+  final likedPersonsRoutes = {
+    AppRoutes.liked: (ctx) => LikedPersonsScreen(),
+    AppRoutes.chat: (ctx) => ChatHistoryScreen(),
+  };
+
   List<Widget> get navigatorScreens => [
-    Navigator(
-      initialRoute: AppRoutes.liked,
-      onGenerateRoute:
-          (settings) => onGenerateRoute({
-            AppRoutes.liked: (ctx) => LikedPersonsScreen(),
-          }, settings),
-    ),
     Navigator(
       initialRoute: AppRoutes.later,
       onGenerateRoute:
           (settings) => onGenerateRoute({
             AppRoutes.later: (ctx) => LaterPersonsScreen(),
           }, settings),
+    ),
+    Navigator(
+      initialRoute: AppRoutes.liked,
+      onGenerateRoute:
+          (settings) => onGenerateRoute(likedPersonsRoutes, settings),
     ),
     Navigator(
       initialRoute: AppRoutes.find,
@@ -76,10 +81,10 @@ class _HomeNavigatorScreenState extends State<HomeNavigatorScreen> {
         selectedIndex: selectedIndex,
         onDestinationSelected: onDestinationSelected,
         destinations: [
-          NavigationDestination(icon: Icon(Icons.favorite), label: 'Fav'),
-          NavigationDestination(icon: Icon(Icons.access_time), label: 'Later'),
-          NavigationDestination(icon: Icon(Icons.search), label: 'Find'),
-          NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
+          CustomNavigatorDestination(icon: Icons.access_time, label: 'Later'),
+          CustomNavigatorDestination(icon: Icons.favorite, label: 'Fav'),
+          CustomNavigatorDestination(icon: Icons.search_rounded, label: 'Find'),
+          CustomNavigatorDestination(icon: Icons.person, label: 'Profile'),
         ],
       ),
     );
