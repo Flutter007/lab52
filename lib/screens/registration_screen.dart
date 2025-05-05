@@ -28,6 +28,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         userMeetingGender != null) {
       final user = controller.getUser(userGender!);
       context.read<UserProvider>().setUser(user);
+      context.read<UserProvider>().setGender(userMeetingGender);
       goToMain();
     }
   }
@@ -45,6 +46,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            RegistrationForm(controller: controller),
+            SizedBox(height: 20),
             DropdownMenu(
               expandedInsets: EdgeInsets.all(40),
               label: Text('Select Gender'),
@@ -64,7 +67,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       )
                       .toList(),
             ),
-            RegistrationForm(controller: controller),
             SizedBox(height: 20),
             DropdownMenu(
               expandedInsets: EdgeInsets.all(40),
@@ -85,7 +87,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       )
                       .toList(),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 40),
             ElevatedButton(onPressed: saveUser, child: Text('Register')),
           ],
         ),

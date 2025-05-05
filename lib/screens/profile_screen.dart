@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../models/user.dart';
-import '../provider/user_provider.dart';
+import 'package:lab52/widgets/profile_data_view.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -11,25 +9,14 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  late User? user;
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    user = context.read<UserProvider>().user;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text('Your account Information'),
-        Text('Name :${user!.name}'),
-        Text('Last name : ${user!.lastName}'),
-        Text('Age : ${user!.age}'),
-        Text('Gender${user!.gender}'),
-        Image.network(user!.image),
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Your account Information'),
+        automaticallyImplyLeading: false,
+      ),
+      body: Center(child: ProfileDataView()),
     );
   }
 }

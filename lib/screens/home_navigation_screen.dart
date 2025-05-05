@@ -54,9 +54,9 @@ class _HomeNavigatorScreenState extends State<HomeNavigatorScreen> {
     Navigator(
       initialRoute: AppRoutes.find,
       onGenerateRoute: (settings) {
-        return MaterialPageRoute(
-          builder: (ctx) => FindPersonScreen(userGender: userGender),
-        );
+        return onGenerateRoute({
+          AppRoutes.find: (ctx) => FindPersonScreen(),
+        }, settings);
       },
     ),
     Navigator(

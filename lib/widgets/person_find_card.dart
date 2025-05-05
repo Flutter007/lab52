@@ -7,14 +7,14 @@ class PersonFindCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 300,
+    return SizedBox(
+      width: 350,
       height: 300,
       child: Card(
         child: Column(
           children: [
-            Image.network(person.image),
-            Text(person.name + person.lastName),
+            Image.network(person.image, fit: BoxFit.fill),
+            Text('${person.name} ${person.lastName}'),
             Text(person.age.toString()),
             Text('${person.city}, ${person.country}'),
           ],

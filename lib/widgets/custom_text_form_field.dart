@@ -20,10 +20,7 @@ class CustomTextFormField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
-        decoration: InputDecoration(
-          labelText: labelText,
-          border: OutlineInputBorder(),
-        ),
+        decoration: InputDecoration(labelText: labelText),
         validator: validator,
       ),
     );

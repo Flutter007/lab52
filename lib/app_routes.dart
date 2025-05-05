@@ -5,4 +5,5 @@ class AppRoutes {
   static const liked = '/liked';
   static const later = '/later';
   static const find = '/find';
+  static const chat = '/chat';
 }

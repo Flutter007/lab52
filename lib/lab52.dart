@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lab52/app_routes.dart';
-import 'package:lab52/provider/person_liked_provider.dart';
+import 'package:lab52/provider/person_list_provider.dart';
 import 'package:lab52/provider/user_provider.dart';
+import 'package:lab52/screens/chat_history_screen.dart';
 import 'package:lab52/screens/home_navigation_screen.dart';
 import 'package:lab52/screens/registration_screen.dart';
 import 'package:provider/provider.dart';
@@ -19,13 +20,14 @@ class _Lab52State extends State<Lab52> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),
-        ChangeNotifierProvider(create: (context) => PersonLiked()),
+        ChangeNotifierProvider(create: (context) => PersonListProvider()),
       ],
       child: MaterialApp(
         initialRoute: AppRoutes.registration,
         routes: {
           AppRoutes.registration: (ctx) => RegistrationScreen(),
           AppRoutes.home: (ctx) => HomeNavigatorScreen(),
+          AppRoutes.chat: (ctx) => ChatHistoryScreen(),
         },
       ),
     );
