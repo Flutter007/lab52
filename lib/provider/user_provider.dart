@@ -9,14 +9,15 @@ class UserProvider extends ChangeNotifier {
   String? get selectedGender => _selectedGender;
   User? _user;
   User? get user => _user;
+
   void setUser(User user) {
     _user = user;
     notifyListeners();
   }
 
-  void setGender(String? meetGender, String? gender) {
-    _selectedGender = gender;
+  void setGender(String? gender, String? meetGender) {
     _selectedMeetGender = meetGender;
+    _selectedGender = gender;
     notifyListeners();
   }
 }

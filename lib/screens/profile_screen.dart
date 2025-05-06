@@ -28,7 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void saveChanges() {
     if (controller.formKey.currentState!.validate()) {
       final user = controller.getUser(
-        context.read<UserProvider>().selectedGender!,
+        context.read<UserProvider>().selectedMeetGender!,
       );
       context.read<UserProvider>().setUser(user);
       Navigator.pop(context);

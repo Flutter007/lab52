@@ -41,13 +41,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(title: Text('Register yourself!')),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Text('Fill info : ', style: theme.textTheme.titleLarge),
             RegistrationForm(
               firstMenu: GenderDropDownMenu(
                 txt: 'Gender',
@@ -61,7 +59,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               controller: controller,
               secondMenu: GenderDropDownMenu(
                 txt: 'Meeting Gender',
-                icon: Icon(userGender == 'male' ? Icons.male : Icons.female),
+                icon: Icon(
+                  userMeetingGender == 'male' ? Icons.male : Icons.female,
+                ),
                 onSelected: (value) {
                   setState(() {
                     userMeetingGender = value;

@@ -5,6 +5,8 @@ import 'package:lab52/provider/user_provider.dart';
 import 'package:lab52/widgets/person_find_card.dart';
 import 'package:provider/provider.dart';
 import '../helpers/request.dart';
+import '../theme/color.dart';
+import '../widgets/custom_icon.dart';
 
 class FindPersonScreen extends StatefulWidget {
   const FindPersonScreen({super.key});
@@ -66,6 +68,7 @@ class _FindPersonScreenState extends State<FindPersonScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final customColor = theme.extension<CustomColor>()!;
     Widget content;
     if (isLoading) {
       content = Center(child: CircularProgressIndicator());
@@ -83,10 +86,9 @@ class _FindPersonScreenState extends State<FindPersonScreen> {
               children: [
                 ElevatedButton(
                   onPressed: () => postponePerson(person!),
-                  child: Icon(
-                    Icons.watch_later_rounded,
-                    color: theme.colorScheme.inverseSurface,
-                    size: 30,
+                  child: CustomIcon(
+                    icon: Icons.watch_later_rounded,
+                    color: customColor.txtColor,
                   ),
                 ),
                 ElevatedButton(
@@ -94,21 +96,19 @@ class _FindPersonScreenState extends State<FindPersonScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor:
                         person!.isLiked == true
-                            ? theme.colorScheme.error
-                            : theme.colorScheme.surface,
+                            ? theme.colorScheme.inverseSurface
+                            : theme.colorScheme.onPrimaryContainer,
                   ),
-                  child: Icon(
-                    Icons.favorite_rounded,
-                    color: theme.colorScheme.error,
-                    size: 30,
+                  child: CustomIcon(
+                    icon: Icons.favorite_rounded,
+                    color: customColor.redShade,
                   ),
                 ),
                 ElevatedButton(
                   onPressed: fetchPerson,
-                  child: Icon(
-                    Icons.next_plan,
-                    color: theme.colorScheme.inverseSurface,
-                    size: 30,
+                  child: CustomIcon(
+                    icon: Icons.next_plan,
+                    color: customColor.txtColor,
                   ),
                 ),
               ],

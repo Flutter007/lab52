@@ -59,7 +59,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
               labelText: 'Age',
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter your age name';
+                  return 'Please enter your age ';
                 } else if (int.parse(value) < 18) {
                   return 'You are not old enough';
                 }
@@ -69,7 +69,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
             CustomTextFormField(
               controller: widget.controller.imageController,
               keyboardType: TextInputType.url,
-              labelText: 'Image',
+              labelText: 'Image (link)',
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter your image ';

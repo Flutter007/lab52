@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lab52/app_routes.dart';
 import 'package:lab52/provider/person_list_provider.dart';
 import 'package:lab52/provider/user_provider.dart';
-import 'package:lab52/screens/chat_history_screen.dart';
 import 'package:lab52/screens/home_navigation_screen.dart';
 import 'package:lab52/screens/registration_screen.dart';
+import 'package:lab52/theme/dark_theme.dart';
+import 'package:lab52/theme/light_theme.dart';
 import 'package:provider/provider.dart';
 
 class Lab52 extends StatefulWidget {
@@ -23,11 +24,13 @@ class _Lab52State extends State<Lab52> {
         ChangeNotifierProvider(create: (context) => PersonListProvider()),
       ],
       child: MaterialApp(
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        themeMode: ThemeMode.system,
         initialRoute: AppRoutes.registration,
         routes: {
           AppRoutes.registration: (ctx) => RegistrationScreen(),
           AppRoutes.home: (ctx) => HomeNavigatorScreen(),
-          AppRoutes.chat: (ctx) => ChatHistoryScreen(),
         },
       ),
     );
